@@ -1,0 +1,43 @@
+;
+; ch341.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider=%ProviderName%
+DriverVer=
+CatalogFile=CH341SER.cat
+
+[DestinationDirs]
+DefaultDestDir=12
+
+[SourceDisksNames]
+1=%DiskName%,,,""
+
+[SourceDisksFiles]
+CH341SER.sys=1
+
+[Models.NT$ARCH$]
+%DeviceDescD%=DefaultInstall.NT$ARCH$, USB\VID_1A86&PID_7523
+
+[DefaultInstall.NT$ARCH$]
+CopyFiles=@CH341SER.sys
+
+[DefaultInstall.NT$ARCH$.Services]
+AddService=CH341SER,2,Service_Install.NT
+
+[Service_Install.NT]
+DisplayName=%ServiceDesc%
+ServiceType=1                   ; SERVICE_KERNEL_DRIVER
+StartType=3                     ; SERVICE_DEMAND_START
+ErrorControl=1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary=%12%\CH341SER.sys
+
+[Strings]
+ManufacturerName="wch.cn"
+DiskName="CH341 Serial Installation Disk"
+ProviderName="Jose Pizarro"
+DeviceDescD="USB-SERIAL CH341"
+ServiceDesc="USB serial2port driver"
